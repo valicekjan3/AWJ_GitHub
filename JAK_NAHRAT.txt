@@ -1,0 +1,30 @@
+========================================
+  GITHUB - JAK NAHRÁT TUTO SLOŽKU
+========================================
+
+1. Vytvořte repozitář na GitHub:
+   - Jděte na: https://github.com
+   - Klikněte: + → New repository
+   - Název: awj-calculator-pro
+   - Klikněte: Create repository
+
+2. Otevřete Command Prompt v TÉTO SLOŽCE:
+   - Do adresního řádku Průzkumníka napište: cmd
+   - Stiskněte Enter
+
+3. Spusťte tyto příkazy:
+
+   git init
+   git add .
+   git commit -m "AWJ Calculator Pro - Initial commit"
+   git remote add origin https://github.com/VASE-JMENO/awj-calculator-pro.git
+   git push -u origin main
+
+   ⚠️ ZMĚŇTE "VASE-JMENO" na vaše GitHub username!
+
+4. Hotovo! ✅
+   Váš projekt je na: github.com/vase-jmeno/awj-calculator-pro
+
+========================================
+Detailní návod: README_GITHUB.md
+========================================

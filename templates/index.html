@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Profesionální AWJ kalkulátor s AI - Výpočty, analýza sil, optimalizace procesů">
+    <meta name="theme-color" content="#0066FF">
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="apple-touch-icon" href="/static/images/icon-192.png">
+
+    <title>AWJ Calculator Pro | AI-Powered Waterjet Analysis</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chart.js for 2D graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Three.js for 3D visualizations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-water"></i>
+                <span>AWJ Calculator Pro</span>
+                <span class="badge-ai">AI</span>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="#calculator" class="active"><i class="fas fa-calculator"></i> Kalkulátor</a></li>
+                <li><a href="#analysis"><i class="fas fa-chart-line"></i> Analýza</a></li>
+                <li><a href="#optimization"><i class="fas fa-brain"></i> AI Optimalizace</a></li>
+                <li><a href="#visualizations"><i class="fas fa-cube"></i> Vizualizace</a></li>
+                <li><a href="#games"><i class="fas fa-gamepad"></i> Výuka</a></li>
+                <li><a href="#chatbot"><i class="fas fa-robot"></i> AI Asistent</a></li>
+            </ul>
+
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                AWJ Calculator Pro
+                <span class="gradient-text">AI-Powered</span>
+            </h1>
+            <p class="hero-subtitle">Profesionální výpočty, analýza sil a optimalizace procesů abrazivního vodního paprsku</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">10,000+</div>
+                    <div class="stat-label">Výpočtů</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Přesnost</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Materiálů</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <canvas id="heroCanvas"></canvas>
+        </div>
+    </section>
+
+    <!-- Main Calculator Section -->
+    <section id="calculator" class="section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-calculator"></i>
+                Řezné Parametry
+            </h2>
+
+            <div class="calculator-grid">
+                <!-- Input Panel -->
+                <div class="card">
+                    <h3 class="card-title">Vstupní Parametry</h3>
+
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="material">Materiál</button>
+                        <button class="tab-btn" data-tab="cutting">Řezání</button>
+                        <button class="tab-btn" data-tab="abrasive">Abrazivo</button>
+                    </div>
+
+                    <div class="tab-content active" id="material-tab">
+                        <div class="input-group">
+                            <label>Typ materiálu</label>
+                            <select id="materialType" class="select-input">
+                                <option value="steel">Ocel (Steel)</option>
+                                <option value="aluminum">Hliník (Aluminum)</option>
+                                <option value="titanium">Titan (Titanium)</option>
+                                <option value="granite">Žula (Granite)</option>
+                                <option value="glass">Sklo (Glass)</option>
+                                <option value="ceramic">Keramika (Ceramic)</option>
+                                <option value="composite">Kompozit (Composite)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Tloušťka materiálu (mm)</label>
+                            <input type="number" id="thickness" value="10" min="1" max="500" step="0.1" class="number-input">
+                            <div class="input-slider">
+                                <input type="range" id="thicknessSlider" min="1" max="500" value="10" step="0.1">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Pevnost materiálu (MPa)</label>
+                            <input type="number" id="strength" value="400" min="10" max="5000" class="number-input">
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="cutting-tab">
+                        <div class="input-group">
+                            <label>Tlak vody (MPa)</label>
+                            <input type="number" id="pressure" value="380" min="100" max="600" step="10" class="number-input">
+                            <div class="input-slider">
+                                <input type="range" id="pressureSlider" min="100" max="600" value="380" step="10">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Průměr trysky (mm)</label>
+                            <input type="number" id="nozzleDiameter" value="0.33" min="0.1" max="1.0" step="0.01" class="number-input">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Průměr fokusační trubice (mm)</label>
+                            <input type="number" id="focusDiameter" value="1.0" min="0.5" max="2.0" step="0.05" class="number-input">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Délka fokusační trubice (mm)</label>
+                            <input type="number" id="focusLength" value="76" min="50" max="150" step="1" class="number-input">
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="abrasive-tab">
+                        <div class="input-group">
+                            <label>Typ abraziva</label>
+                            <select id="abrasiveType" class="select-input">
+                                <option value="garnet">Granát (Garnet)</option>
+                                <option value="aluminum-oxide">Oxid hlinitý (Aluminum Oxide)</option>
+                                <option value="silicon-carbide">Karbid křemíku (Silicon Carbide)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Velikost zrna (mesh)</label>
+                            <select id="meshSize" class="select-input">
+                                <option value="50">50 mesh (297 μm)</option>
+                                <option value="80" selected>80 mesh (177 μm)</option>
+                                <option value="120">120 mesh (125 μm)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Hmotnostní tok abraziva (g/s)</label>
+                            <input type="number" id="abrasiveFlow" value="8" min="1" max="20" step="0.1" class="number-input">
+                            <div class="input-slider">
+                                <input type="range" id="abrasiveFlowSlider" min="1" max="20" value="8" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-large" onclick="calculateAWJ()">
+                        <i class="fas fa-play"></i>
+                        Vypočítat
+                    </button>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="card">
+                    <h3 class="card-title">Výsledky Výpočtu</h3>
+
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="result-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div class="result-content">
+                                <div class="result-label">Řezná rychlost</div>
+                                <div class="result-value" id="cuttingSpeed">-- mm/min</div>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="result-content">
+                                <div class="result-label">Hydraulický výkon</div>
+                                <div class="result-value" id="hydraulicPower">-- kW</div>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-icon">
+                                <i class="fas fa-water"></i>
+                            </div>
+                            <div class="result-content">
+                                <div class="result-label">Průtok vody</div>
+                                <div class="result-value" id="waterFlow">-- l/min</div>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-icon">
+                                <i class="fas fa-compress"></i>
+                            </div>
+                            <div class="result-content">
+                                <div class="result-label">Hloubka řezu</div>
+                                <div class="result-value" id="cutDepth">-- mm</div>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-icon">
+                                <i class="fas fa-circle-notch"></i>
+                            </div>
+                            <div class="result-content">
+                                <div class="result-label">Drsnost povrchu Ra</div>
+                                <div class="result-value" id="roughness">-- μm</div>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div class="result-content">
+                                <div class="result-label">Náklady na řez</div>
+                                <div class="result-value" id="costPerMeter">-- Kč/m</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Výpočty jsou založeny na empirických modelech a AI predikci</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Force Analysis Section -->
+    <section id="analysis" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-chart-line"></i>
+                Analýza Sil při Řezání
+            </h2>
+
+            <div class="analysis-grid">
+                <div class="card card-large">
+                    <h3 class="card-title">Rozklad Sil</h3>
+                    <canvas id="forceChart" height="300"></canvas>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Komponenty Sil</h3>
+                    <div class="force-breakdown">
+                        <div class="force-item">
+                            <span class="force-label">Normálová síla (Fn)</span>
+                            <span class="force-value" id="normalForce">0 N</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="normalForceBar"></div>
+                            </div>
+                        </div>
+
+                        <div class="force-item">
+                            <span class="force-label">Tečná síla (Ft)</span>
+                            <span class="force-value" id="tangentialForce">0 N</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="tangentialForceBar"></div>
+                            </div>
+                        </div>
+
+                        <div class="force-item">
+                            <span class="force-label">Axiální síla (Fa)</span>
+                            <span class="force-value" id="axialForce">0 N</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="axialForceBar"></div>
+                            </div>
+                        </div>
+
+                        <div class="force-item">
+                            <span class="force-label">Celková síla (F)</span>
+                            <span class="force-value" id="totalForce">0 N</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="totalForceBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-large">
+                <h3 class="card-title">Průběh Sil v Čase</h3>
+                <canvas id="forceTimeChart" height="250"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Visualization Section -->
+    <section id="visualizations" class="section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-cube"></i>
+                3D Vizualizace Procesu
+            </h2>
+
+            <div class="visualization-grid">
+                <div class="card card-large">
+                    <h3 class="card-title">3D Model AWJ Řezání</h3>
+                    <div id="threejs-container"></div>
+                    <div class="visualization-controls">
+                        <button class="btn btn-sm" onclick="resetCamera()"><i class="fas fa-redo"></i> Reset</button>
+                        <button class="btn btn-sm" onclick="toggleAnimation()"><i class="fas fa-play"></i> Animace</button>
+                        <button class="btn btn-sm" onclick="changeView('top')">Top</button>
+                        <button class="btn btn-sm" onclick="changeView('side')">Side</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Parametry Vizualizace</h3>
+                    <div class="viz-params">
+                        <div class="input-group">
+                            <label>Zobrazit síly</label>
+                            <label class="switch">
+                                <input type="checkbox" id="showForces" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Zobrazit dráhu paprsku</label>
+                            <label class="switch">
+                                <input type="checkbox" id="showPath" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Zobrazit částice</label>
+                            <label class="switch">
+                                <input type="checkbox" id="showParticles">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Optimization Section -->
+    <section id="optimization" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-brain"></i>
+                AI Optimalizace Procesu
+            </h2>
+
+            <div class="optimization-grid">
+                <div class="card">
+                    <h3 class="card-title">Cílová Optimalizace</h3>
+                    <div class="optimization-targets">
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked>
+                            <span>Maximální řezná rychlost</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked>
+                            <span>Minimální náklady</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox">
+                            <span>Optimální drsnost povrchu</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox">
+                            <span>Minimální opotřebení trysky</span>
+                        </label>
+                    </div>
+
+                    <button class="btn btn-ai btn-large" onclick="runAIOptimization()">
+                        <i class="fas fa-magic"></i>
+                        Spustit AI Optimalizaci
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">AI Doporučení</h3>
+                    <div id="aiRecommendations" class="recommendations-list">
+                        <p class="text-muted">Spusťte optimalizaci pro získání doporučení...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot Section -->
+    <div id="chatbot" class="chatbot-container">
+        <button class="chatbot-toggle" onclick="toggleChatbot()">
+            <i class="fas fa-robot"></i>
+        </button>
+
+        <div class="chatbot-window">
+            <div class="chatbot-header">
+                <div class="chatbot-title">
+                    <i class="fas fa-robot"></i>
+                    AI AWJ Asistent
+                </div>
+                <button class="chatbot-close" onclick="toggleChatbot()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="chatbot-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        Ahoj! Jsem AI asistent pro AWJ technologii. Jak vám mohu pomoci?
+                    </div>
+                </div>
+            </div>
+
+            <div class="chatbot-input">
+                <input type="text" id="chatInput" placeholder="Zeptejte se mě na cokoli o AWJ...">
+                <button onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/calculations.js"></script>
+    <script src="/static/js/visualizations.js"></script>
+    <script src="/static/js/chatbot.js"></script>
+    <script src="/static/js/main.js"></script>
+
+    <!-- PWA Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
+</body>
+</html>
